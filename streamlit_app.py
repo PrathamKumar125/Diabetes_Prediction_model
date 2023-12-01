@@ -9,7 +9,7 @@ scaler=StandardScaler()
 encoder= LabelEncoder()
 
 # loading the saved model
-loaded_model = pickle.load(open('C:/Users/prath/Downloads/Diabetes/trained_model.sav', 'rb'))
+loaded_model = pickle.load(open('trained_model.sav', 'rb'))
 
 # creating a function for Prediction
 def diabetes_prediction(input_data):
