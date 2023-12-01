@@ -8,46 +8,10 @@ from sklearn.preprocessing import LabelEncoder
 scaler=StandardScaler()
 encoder= LabelEncoder()
 
-# df_=pd.read_csv('diabetes_prediction_dataset.csv')
-# scaler.fit_transform(df_)
-
 # loading the saved model
 loaded_model = pickle.load(open('C:/Users/prath/Downloads/Diabetes/trained_model.sav', 'rb'))
 
-
 # creating a function for Prediction
-
-
-# def diabetes_prediction(input_data):
-
-#     # changing the input_data to numpy array
-#     input_data_as_numpy_array = np.asarray(input_data)
-
-#     # reshape the array as we are predicting for one instance
-#     input_data_reshaped = input_data_as_numpy_array.reshape(1,-1)
-
-#     print(input_data_reshaped)
-#     df = pd.DataFrame(input_data_reshaped)
-
-#     map_name={'Male':1,'Female':2,'Other':3} 
-#     df[0]=df[0].map(map_name)
-
-#     df[7]= encoder.fit_transform(df[7])
-
-#     scaler.fit_transform(df)
-#     X= scaler.transform(df)
-
-#     prediction = loaded_model.predict(X)
-#     print(prediction)
-
-#     if (prediction[0] == 0):
-#          return 'The person is not diabetic'
-#     else:
-#        return 'The person is diabetic'
-
-
-# ... (Previous code remains the same)
-
 def diabetes_prediction(input_data):
     # Convert categorical data to numerical values
     map_name = {'Male': 1, 'Female': 2, 'Others': 3}
@@ -62,26 +26,21 @@ def diabetes_prediction(input_data):
     # Create a DataFrame for the input data
     df = pd.DataFrame([input_data])
 
-    # # Load the dataset for scaling
-    # dataset_for_scaling = pd.read_csv('diabetes_prediction_dataset.csv')  # Replace with your actual dataset path
+    # Load the dataset for scaling
+    dataset_for_scaling = pd.read_csv('output.csv')  # Replace with your actual dataset path
 
-    # # Fit the scaler on the dataset for scaling
-    # scaler.fit(dataset_for_scaling)
+    # Fit the scaler on the dataset for scaling
+    scaler.fit(dataset_for_scaling)
 
     # Transform the input data using the fitted scaler
-    X = scaler.fit_transform(df)
-
+    X = scaler.transform(df)
     prediction = loaded_model.predict(X)
-
-    if prediction[0] == 1:
-        return 'The person is diabetic'
-    else:
-        return 'The person is not diabetic'
-
-# ... (Remaining code remains the same)
-
-  
     
+    if prediction[0] == 0:
+        return 'The person is not diabetic'
+    else :
+        return 'The person is diabetic'
+
   
 def main():
     # giving a title
@@ -130,7 +89,6 @@ def main():
         
         
     st.success(diagnosis)
-    
-    
+      
 if __name__ == '__main__':
     main()
