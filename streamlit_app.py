@@ -51,7 +51,8 @@ loaded_model = pickle.load(open('C:/Users/prath/Downloads/Diabetes/trained_model
 def diabetes_prediction(input_data):
     # Convert categorical data to numerical values
     map_name = {'Male': 1, 'Female': 2, 'Others': 3}
-    input_data[0] = map_name[input_data[0]]
+    gender = input_data[0]
+    input_data[0] = map_name[gender]
 
     # Fit encoder on the original dataset values for 'Smoking history'
     sample_smoking_history = ['No Info', 'Current', 'Ever', 'Former', 'Never', 'Not Current']  # Provide your dataset values
@@ -61,26 +62,21 @@ def diabetes_prediction(input_data):
     # Create a DataFrame for the input data
     df = pd.DataFrame([input_data])
 
-    # Load the dataset for scaling
-    dataset_for_scaling = pd.read_csv('diabetes_prediction_dataset.csv')  # Replace with your actual dataset path
+    # # Load the dataset for scaling
+    # dataset_for_scaling = pd.read_csv('diabetes_prediction_dataset.csv')  # Replace with your actual dataset path
 
-    # Fit the scaler on the dataset for scaling
-    scaler.fit(dataset_for_scaling)
-
-    # Convert columns to numeric (age, BMI, HbA1c_level, blood_glucose_level)
-    numeric_columns = [1, 4, 5, 6]
-    for col in numeric_columns:
-        df[col] = pd.to_numeric(df[col])
+    # # Fit the scaler on the dataset for scaling
+    # scaler.fit(dataset_for_scaling)
 
     # Transform the input data using the fitted scaler
-    X = scaler.transform(df)
+    X = scaler.fit_transform(df)
 
     prediction = loaded_model.predict(X)
 
-    if prediction[0] == 0:
-        return 'The person is not diabetic'
-    else:
+    if prediction[0] == 1:
         return 'The person is diabetic'
+    else:
+        return 'The person is not diabetic'
 
 # ... (Remaining code remains the same)
 
@@ -114,17 +110,15 @@ def main():
     else:
        st.write(0)
 
+    
+    bmi = st.text_input('Enter your BMI Index') 
+    HbA1c_level = st.text_input('Enter your Hemoglobin level')
+    blood_glucose_level = st.text_input('Enter your blood glucose level')
+    
     smoking_history = st.selectbox(
     "Please select your Smoking history",
     ("No Info", "Current", "Ever", "Former", "Never", "Not Current"))
     st.write('You selected:', smoking_history) 
-    
-    bmi = st.text_input('Enter your BMI Index') 
-
-
-    HbA1c_level = st.text_input('Enter your Hemoglobin level')
-    blood_glucose_level = st.text_input('Enter your blood glucose level')
-    
 
     # code for Prediction
     diagnosis = ''
@@ -140,18 +134,3 @@ def main():
     
 if __name__ == '__main__':
     main()
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-  
-    
-  
