@@ -8,8 +8,8 @@ from sklearn.preprocessing import LabelEncoder
 scaler=StandardScaler()
 encoder= LabelEncoder()
 
-df_=pd.read_csv('diabetes_prediction_dataset.csv')
-scaler.fit_transform(df_)
+# df_=pd.read_csv('diabetes_prediction_dataset.csv')
+# scaler.fit_transform(df_)
 
 # loading the saved model
 loaded_model = pickle.load(open('C:/Users/prath/Downloads/Diabetes/trained_model.sav', 'rb'))
@@ -21,7 +21,7 @@ loaded_model = pickle.load(open('C:/Users/prath/Downloads/Diabetes/trained_model
 def diabetes_prediction(input_data):
 
     # changing the input_data to numpy array
-    input_data_as_numpy_array = np.asarray(input_data.astype(float))
+    input_data_as_numpy_array = np.asarray(input_data)
 
     # reshape the array as we are predicting for one instance
     input_data_reshaped = input_data_as_numpy_array.reshape(1,-1)
