@@ -70,7 +70,7 @@ def main():
 
     
     bmi = st.number_input('Enter your BMI Index',value=0.00,step=0.01,format="%.2f", min_value=0.00) 
-    HbA1c_level = st.number_input('Enter your Hemoglobin level',value=0.0,step=0.1,format="%.1f", min_value=0.0)
+    HbA1c_level = st.number_input('Enter your HbA1c_level level',value=0.0,step=0.1,format="%.1f", min_value=0.0)
     blood_glucose_level = st.number_input('Enter your blood glucose level',value=0.0,step=0.1,format="%.1f", min_value=0.0)
     
     smoking_history = st.selectbox(
